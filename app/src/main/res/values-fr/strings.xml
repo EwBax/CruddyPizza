@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cruddy Pizza</string>
+    <string name="new_order">Nouvel Ordre</string>
+    <string name="order_history">Historique des Commandes</string>
+    <string name="main_menu">Menu Principal</string>
+    <string name="size">Taille</string>
+    <string name="topping">Garnitures (Choisissez 1-3)</string>
+
+    <string-array name="size_list">
+        <item>Petit</item>
+        <item>Moyen</item>
+        <item>Grand</item>
+        <item>Très Grand</item>
+    </string-array>
+
+    <string-array name="topping_list">
+        <item>--Choisis une Option--</item>
+        <item>Fromage</item>
+        <item>Pepperoni</item>
+        <item>Oignon</item>
+    </string-array>
+    <string name="customer_name">Nom du Client</string>
+    <string name="submit">Soumettre la Commande</string>
+    <string name="order_details">Détails de la Commande</string>
+    <string name="delete">Supprimer la Commande</string>
+    <string name="language">EN</string>
+
+</resources>

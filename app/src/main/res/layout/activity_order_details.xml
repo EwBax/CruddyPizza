@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/red_light"
+    tools:context=".activities.OrderDetailsActivity">
+
+    <TextView
+        android:id="@+id/sizeTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/size"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/sizeLayout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/sizeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13">
+
+        <Spinner
+            android:id="@+id/sizeSpin"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spinner_height"
+            android:layout_weight=".6"
+            android:background="@drawable/bg_spinner_custom"
+            android:entries="@array/size_list"
+            android:prompt="@string/size" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/toppingsTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/topping"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/topping1Layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sizeLayout" />
+
+    <LinearLayout
+        android:id="@+id/topping1Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.36">
+
+        <Spinner
+            android:id="@+id/top1Spin"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spinner_height"
+            android:layout_weight=".6"
+            android:background="@drawable/bg_spinner_custom"
+            android:entries="@array/topping_list"
+            android:prompt="@string/size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/topping2Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45">
+
+        <Spinner
+            android:id="@+id/top2Spin"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spinner_height"
+            android:layout_weight=".6"
+            android:background="@drawable/bg_spinner_custom"
+            android:entries="@array/topping_list"
+            android:prompt="@string/size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/topping3Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.54">
+
+        <Spinner
+            android:id="@+id/top3Spin"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spinner_height"
+            android:layout_weight=".6"
+            android:background="@drawable/bg_spinner_custom"
+            android:entries="@array/topping_list"
+            android:prompt="@string/size" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/customerNameTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/customer_name"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:labelFor="@id/customerNameET"
+        app:layout_constraintBottom_toTopOf="@+id/customerNameET"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topping3Layout" />
+
+    <EditText
+        android:id="@+id/customerNameET"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_edit_text_custom"
+        android:ems="15"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        android:autofillHints="name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customerNameET"
+        app:layout_constraintVertical_bias="0.15">
+
+        <Button
+            android:id="@+id/submitOrderBtn"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_weight=".5"
+            android:backgroundTint="@color/green_enabled"
+            android:text="@string/submit"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customerNameET"
+        app:layout_constraintVertical_bias="0.85">
+
+        <Button
+            android:id="@+id/deleteOrderBtn"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_weight=".5"
+            android:backgroundTint="@color/red_med"
+            android:text="@string/delete"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
