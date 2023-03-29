@@ -127,7 +127,7 @@ public class NewOrderActivity extends BaseActivity {
         }
 
     }
-    
+
     // TODO implement validation for fields
     // TODO implement toast to show order is valid and submitted
 }
