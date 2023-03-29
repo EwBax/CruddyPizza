@@ -1,17 +1,19 @@
-package Util;
+package utils;
 
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.preference.PreferenceManager;
 
 import java.util.Locale;
 
 // Code based on https://infyom.com/blog/how-to-change-app-language-in-android-programmatically
 public class LocaleHelper {
 
-    private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
+    public static final String LANG_PREFS_KEY = "language";
+    public static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
+    public static final String ENGLISH = "en";
+    public static final String FRENCH = "fr";
 
     // This method is used to set the language at runtime
     public static Context setLocale(Context context, String language) {
@@ -36,6 +38,7 @@ public class LocaleHelper {
         Configuration configuration = context.getResources().getConfiguration();
         configuration.setLocale(locale);
         configuration.setLayoutDirection(locale);
+
 
         return context.createConfigurationContext(configuration);
     }

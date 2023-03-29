@@ -25,5 +25,6 @@
     <string name="order_details">Détails de la Commande</string>
     <string name="delete">Supprimer la Commande</string>
     <string name="language">EN</string>
+    <string name="save">Enregistrer la commande</string>
 
 </resources>

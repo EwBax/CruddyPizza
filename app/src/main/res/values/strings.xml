@@ -7,6 +7,7 @@
     <string name="topping">Toppings (Choose 1-3)</string>
     <string name="customer_name">Customer Name</string>
     <string name="submit">Submit Order</string>
+    <string name="save">Save Order</string>
     <string name="order_details">Order Details</string>
     <string name="delete">Delete Order</string>
     <string name="language">FR</string>

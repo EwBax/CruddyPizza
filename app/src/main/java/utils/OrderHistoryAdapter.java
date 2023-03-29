@@ -1,6 +1,6 @@
 // This adapter and the way I set up my recycler view was inspired by these videos https://www.youtube.com/watch?v=1ssYYy8Li48 https://www.youtube.com/watch?v=7GPUpvcU1FE&t=9s
 
-package Util;
+package utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -48,7 +48,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     @Override
     public void onBindViewHolder(@NonNull OrderHistoryAdapter.MyViewHolder holder, int position) {
 
-        String orderDetails = "Order #" + orderModels.get(position).getOrderNum() +
+        String orderDetails = "#" + orderModels.get(position).getOrderNum() +
                 " " + orderModels.get(position).getDate();
 
         holder.orderDetailsTV.setText(orderDetails);

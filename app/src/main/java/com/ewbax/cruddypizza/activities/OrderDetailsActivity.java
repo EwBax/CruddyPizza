@@ -1,32 +1,16 @@
 package com.ewbax.cruddypizza.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.ewbax.cruddypizza.R;
 
-public class OrderDetailsActivity extends AppCompatActivity {
+import models.OrderModel;
 
-    TextView sizeTV;
-    TextView toppingsTV;
-    TextView customerNameTV;
-    EditText customerNameET;
-    Spinner sizeSpin;
-    Spinner top1Spin;
-    Spinner top2Spin;
-    Spinner top3Spin;
-    Button submitOrderBtn;
+public class OrderDetailsActivity extends NewOrderActivity {
+
     Button deleteOrderBtn;
+    OrderModel order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +28,38 @@ public class OrderDetailsActivity extends AppCompatActivity {
         submitOrderBtn = findViewById(R.id.submitOrderBtn);
         deleteOrderBtn = findViewById(R.id.deleteOrderBtn);
 
+        order = new OrderModel();
+        order.setOrderNum(getIntent().getIntExtra("ORDER_NUM", 0));
+        order.setSize(getIntent().getIntExtra("SIZE", 0));
+        order.setTop1(getIntent().getIntExtra("TOP1", 0));
+        order.setTop2(getIntent().getIntExtra("TOP2", 0));
+        order.setTop3(getIntent().getIntExtra("TOP3", 0));
+        order.setCustomerName(getIntent().getStringExtra("CUSTOMER_NAME"));
+
+        System.out.println(order.getOrderNum());
+        System.out.println(order.getCustomerName());
+        System.out.println(order.getSize());
+
+        sizeSpin.setSelection(order.getSize());
+        top1Spin.setSelection(order.getTop1());
+        top2Spin.setSelection(order.getTop2());
+        top3Spin.setSelection(order.getTop3());
+        customerNameET.setText(order.getCustomerName());
+
+
+
+
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.default_menu, menu);
-        return true;
+    protected void updateTextLanguage() {
+        super.updateTextLanguage();
+
+        setTitle(context.getResources().getString(R.string.order_details));
+        deleteOrderBtn.setText(context.getResources().getString(R.string.delete));
+        submitOrderBtn.setText(context.getResources().getString(R.string.save));
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        return super.onOptionsItemSelected(item);
-    }
+    // TODO override NewOrderActivity implementation of submit button to instead edit
+    // TODO implement delete button
 }

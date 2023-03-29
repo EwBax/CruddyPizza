@@ -1,7 +1,6 @@
 package com.ewbax.cruddypizza.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,13 +16,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import Util.OrderHistoryAdapter;
-import Util.RecyclerViewInterface;
+import utils.OrderHistoryAdapter;
+import utils.RecyclerViewInterface;
 import models.OrderModel;
 
-public class OrderHistoryActivity extends AppCompatActivity implements RecyclerViewInterface {
+public class OrderHistoryActivity extends BaseActivity implements RecyclerViewInterface {
 
-    ArrayList<OrderModel> orderModels;
+    private ArrayList<OrderModel> orderModels;
+    private MenuItem mainMenuLink;
+    private MenuItem newOrderLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +39,21 @@ public class OrderHistoryActivity extends AppCompatActivity implements RecyclerV
         OrderHistoryAdapter orderHistoryAdapter = new OrderHistoryAdapter(this, orderModels, this);
         orderHistoryRV.setAdapter(orderHistoryAdapter);
         orderHistoryRV.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.order_history_menu, menu);
+
+        languageSelector = menu.findItem(R.id.language_selector);
+        mainMenuLink = menu.findItem(R.id.main_menu);
+        newOrderLink = menu.findItem(R.id.new_order);
+
+        updateTextLanguage();
+
         return true;
     }
 
@@ -63,13 +73,16 @@ public class OrderHistoryActivity extends AppCompatActivity implements RecyclerV
         return super.onOptionsItemSelected(item);
     }
 
+
+    // This method will in the future use the database adapter to pull orders from the database
+    // As a placeholder I have hardcoded a few orders
     private void setUpOrderModels() {
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
-        orderModels.add(new OrderModel(1, 0, 0, 1, 2, dtf.format(now), "Ewan Baxter"));
-        orderModels.add(new OrderModel(1, 0, 0, 1, 2, "2023-03-24 12:21:03", "David Russell"));
+        orderModels.add(new OrderModel(2, 1, 1, 2, 3, dtf.format(now), "Ewan Baxter"));
+        orderModels.add(new OrderModel(1, 2, 3, 1, 2, "2023-03-24 12:21:03", "David Russell"));
     }
 
     @Override
@@ -85,5 +98,16 @@ public class OrderHistoryActivity extends AppCompatActivity implements RecyclerV
         intent.putExtra("CUSTOMER_NAME", orderModels.get(position).getCustomerName());
 
         startActivity(intent);
+    }
+
+    @Override
+    protected void updateTextLanguage() {
+
+        setTitle(context.getResources().getString(R.string.order_history));
+        languageSelector.setTitle(context.getResources().getString(R.string.language));
+        mainMenuLink.setTitle(context.getResources().getString(R.string.main_menu));
+        newOrderLink.setTitle(context.getResources().getString(R.string.new_order));
+
+
     }
 }

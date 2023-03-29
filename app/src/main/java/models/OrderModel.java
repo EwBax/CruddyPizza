@@ -1,5 +1,8 @@
 package models;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class OrderModel {
 
     private int orderNum;
@@ -10,6 +13,20 @@ public class OrderModel {
     private String date;
     private String customerName;
 
+
+    public OrderModel() {
+
+        orderNum = 0;
+        size = 0;
+        top1 = 0;
+        top2 = 0;
+        top3 = 0;
+        customerName = "";
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        date = dtf.format(now);
+    }
 
     public OrderModel(int orderNum, int size, int top1, int top2, int top3, String date, String customerName) {
         this.orderNum = orderNum;
