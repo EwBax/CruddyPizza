@@ -1,7 +1,9 @@
 package com.ewbax.cruddypizza.activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.ewbax.cruddypizza.R;
 
@@ -46,7 +48,8 @@ public class OrderDetailsActivity extends NewOrderActivity {
         top3Spin.setSelection(order.getTop3());
         customerNameET.setText(order.getCustomerName());
 
-
+        submitOrderBtn.setOnClickListener(updateOrder);
+        deleteOrderBtn.setOnClickListener(deleteOrder);
 
 
     }
@@ -57,9 +60,33 @@ public class OrderDetailsActivity extends NewOrderActivity {
 
         setTitle(context.getResources().getString(R.string.order_details));
         deleteOrderBtn.setText(context.getResources().getString(R.string.delete));
-        submitOrderBtn.setText(context.getResources().getString(R.string.save));
+        submitOrderBtn.setText(context.getResources().getString(R.string.update));
     }
 
-    // TODO override NewOrderActivity implementation of submit button to instead edit
-    // TODO implement delete button
+
+    protected View.OnClickListener updateOrder = v -> {
+        Toast updateOrderMsg = new Toast(this);
+        updateOrderMsg.setDuration(Toast.LENGTH_LONG);
+
+        if (!validateFields()) {
+            updateOrderMsg.setText(context.getResources().getString(R.string.validation_error));
+            updateOrderMsg.show();
+        } else {
+            updateOrderMsg.setText(context.getResources().getString(R.string.order_updated));
+            updateOrderMsg.show();
+            finish();
+        }
+
+    };
+
+
+    protected View.OnClickListener deleteOrder = v -> {
+        Toast updateOrderMsg = new Toast(this);
+        updateOrderMsg.setDuration(Toast.LENGTH_LONG);
+        updateOrderMsg.setText(context.getResources().getString(R.string.order_deleted));
+        updateOrderMsg.show();
+        finish();
+
+    };
+
 }

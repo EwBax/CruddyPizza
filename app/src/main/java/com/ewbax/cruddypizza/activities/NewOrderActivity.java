@@ -7,30 +7,32 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ewbax.cruddypizza.R;
 
 public class NewOrderActivity extends BaseActivity {
 
-    TextView sizeTV;
-    TextView toppingsTV;
-    TextView customerNameTV;
-    EditText customerNameET;
-    Spinner sizeSpin;
-    Spinner top1Spin;
-    Spinner top2Spin;
-    Spinner top3Spin;
-    Button submitOrderBtn;
-    MenuItem mainMenuLink;
-    MenuItem orderHistoryLink;
+    protected TextView sizeTV;
+    protected TextView toppingsTV;
+    protected TextView customerNameTV;
+    protected EditText customerNameET;
+    protected Spinner sizeSpin;
+    protected Spinner top1Spin;
+    protected Spinner top2Spin;
+    protected Spinner top3Spin;
+    protected Button submitOrderBtn;
+    protected MenuItem mainMenuLink;
+    protected MenuItem orderHistoryLink;
 
-    ArrayAdapter<CharSequence> sizeAdapter;
-    ArrayAdapter<CharSequence> toppingAdapter;
+    protected ArrayAdapter<CharSequence> sizeAdapter;
+    protected ArrayAdapter<CharSequence> toppingAdapter;
 
 
     @Override
@@ -48,6 +50,7 @@ public class NewOrderActivity extends BaseActivity {
         top2Spin = findViewById(R.id.top2Spin);
         top3Spin = findViewById(R.id.top3Spin);
         submitOrderBtn = findViewById(R.id.submitOrderBtn);
+        submitOrderBtn.setOnClickListener(submitOrder);
 
 
     }
@@ -129,5 +132,38 @@ public class NewOrderActivity extends BaseActivity {
     }
 
     // TODO implement validation for fields
+    protected boolean validateFields() {
+
+        // Checking that a size has been chosen
+        if (sizeSpin.getSelectedItemPosition() == 0) {return false;}
+
+        // Checking that at least one topping has been chosen
+        if ((top1Spin.getSelectedItemPosition() == 0)
+                && (top2Spin.getSelectedItemPosition() == 0)
+                && (top3Spin.getSelectedItemPosition() == 0)) {
+
+            return false;
+        }
+
+        // Checking that customer name has been entered
+        return !customerNameET.getText().toString().trim().isEmpty();
+
+    }
+
     // TODO implement toast to show order is valid and submitted
+    protected View.OnClickListener submitOrder = v -> {
+
+        Toast submitOrderMsg = new Toast(this);
+        submitOrderMsg.setDuration(Toast.LENGTH_LONG);
+
+        if (!validateFields()) {
+            submitOrderMsg.setText(context.getResources().getString(R.string.validation_error));
+            submitOrderMsg.show();
+        } else {
+            submitOrderMsg.setText(context.getResources().getString(R.string.order_submitted));
+            submitOrderMsg.show();
+            finish();
+        }
+
+    };
 }
