@@ -7,8 +7,6 @@ import android.widget.Button;
 
 import com.ewbax.cruddypizza.R;
 
-import utils.LocaleHelper;
-
 public class MainActivity extends BaseActivity {
 
     private Button newOrderBtn;
@@ -19,11 +17,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Getting the language from shared preferences then generating new context for updated language resources
-        prefs = getSharedPreferences(LocaleHelper.LANG_PREFS_KEY, MODE_PRIVATE);
-        // Setting the locale using value from shared preferences, or default of english
-        context = LocaleHelper.setLocale(this.getBaseContext(), prefs.getString(LocaleHelper.SELECTED_LANGUAGE, LocaleHelper.ENGLISH));
-
         newOrderBtn = findViewById(R.id.newOrderBtn);
         orderHistoryBtn = findViewById(R.id.orderHistoryBtn);
         newOrderBtn.setOnClickListener(onButtonClicked);
@@ -31,7 +24,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-
+    // Shared listener for both buttons, launches activity based on which button is pressed
     public View.OnClickListener onButtonClicked = v -> {
 
         if (v.getId() == R.id.newOrderBtn) {

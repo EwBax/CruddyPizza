@@ -3,8 +3,11 @@ package models;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+
+// This object represents an order in the system. Also used in the recycler view on OrderHistoryActivity
 public class OrderModel {
 
+    // The properties of the order
     private int orderNum;
     private int size;
     private int top1;
@@ -14,6 +17,7 @@ public class OrderModel {
     private String customerName;
 
 
+    // Default constructor
     public OrderModel() {
 
         orderNum = 0;

@@ -55,6 +55,8 @@ public class NewOrderActivity extends BaseActivity {
 
     }
 
+
+    // Creating the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -70,6 +72,8 @@ public class NewOrderActivity extends BaseActivity {
         return true;
     }
 
+
+    // Listener for menu item being selected
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -85,11 +89,14 @@ public class NewOrderActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    // Method to update the text of every view using the new context with updated language
     @Override
     protected void updateTextLanguage() {
 
+        super.updateTextLanguage();
+
         setTitle(context.getResources().getString(R.string.new_order));
-        languageSelector.setTitle(context.getResources().getString(R.string.language));
         mainMenuLink.setTitle(context.getResources().getString(R.string.main_menu));
         orderHistoryLink.setTitle(context.getResources().getString(R.string.order_history));
 
@@ -98,19 +105,18 @@ public class NewOrderActivity extends BaseActivity {
         customerNameTV.setText(context.getResources().getString(R.string.customer_name));
         submitOrderBtn.setText(context.getResources().getString(R.string.submit));
 
-
-
+        // Updating spinner adapters
         toppingAdapter = ArrayAdapter.createFromResource(context, R.array.topping_list, R.layout.spinner_item);
         toppingAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         sizeAdapter = ArrayAdapter.createFromResource(context, R.array.size_list, R.layout.spinner_item);
         sizeAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-
 
         updateSpinners();
 
     }
 
 
+    // Updates the spinners to set to the updated adapters, and maintains selection
     protected void updateSpinners() {
 
         Spinner[] spinners = {sizeSpin, top1Spin, top2Spin, top3Spin};
@@ -131,7 +137,8 @@ public class NewOrderActivity extends BaseActivity {
 
     }
 
-    // TODO implement validation for fields
+
+    // Returns boolean representing whether all required fields are filled
     protected boolean validateFields() {
 
         // Checking that a size has been chosen
@@ -150,7 +157,9 @@ public class NewOrderActivity extends BaseActivity {
 
     }
 
-    // TODO implement toast to show order is valid and submitted
+
+    // This method just does a toast to show that validation is taking place and the order is submitted
+    // It will call the database adapter to enter the order into the database
     protected View.OnClickListener submitOrder = v -> {
 
         Toast submitOrderMsg = new Toast(this);

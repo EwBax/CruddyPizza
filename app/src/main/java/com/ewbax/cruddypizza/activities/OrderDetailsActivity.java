@@ -30,6 +30,7 @@ public class OrderDetailsActivity extends NewOrderActivity {
         submitOrderBtn = findViewById(R.id.submitOrderBtn);
         deleteOrderBtn = findViewById(R.id.deleteOrderBtn);
 
+        // Getting the order details from the intent bundle and storing them in an order model object
         order = new OrderModel();
         order.setOrderNum(getIntent().getIntExtra("ORDER_NUM", 0));
         order.setSize(getIntent().getIntExtra("SIZE", 0));
@@ -38,10 +39,7 @@ public class OrderDetailsActivity extends NewOrderActivity {
         order.setTop3(getIntent().getIntExtra("TOP3", 0));
         order.setCustomerName(getIntent().getStringExtra("CUSTOMER_NAME"));
 
-        System.out.println(order.getOrderNum());
-        System.out.println(order.getCustomerName());
-        System.out.println(order.getSize());
-
+        // Setting the spinners and customer name to the selections from the order model
         sizeSpin.setSelection(order.getSize());
         top1Spin.setSelection(order.getTop1());
         top2Spin.setSelection(order.getTop2());
@@ -54,6 +52,8 @@ public class OrderDetailsActivity extends NewOrderActivity {
 
     }
 
+
+    // We only need to update the two buttons here because everything else is updated in the super class
     @Override
     protected void updateTextLanguage() {
         super.updateTextLanguage();
@@ -64,6 +64,8 @@ public class OrderDetailsActivity extends NewOrderActivity {
     }
 
 
+    // This method just does a toast to show that validation is taking place and the order is updated
+    // It will call the database adapter to update the order in the database
     protected View.OnClickListener updateOrder = v -> {
         Toast updateOrderMsg = new Toast(this);
         updateOrderMsg.setDuration(Toast.LENGTH_LONG);
@@ -80,6 +82,8 @@ public class OrderDetailsActivity extends NewOrderActivity {
     };
 
 
+    // This method just shows a message that the order was deleted, but it will eventually use the
+    // database adapter to actually delete the order from the database
     protected View.OnClickListener deleteOrder = v -> {
         Toast updateOrderMsg = new Toast(this);
         updateOrderMsg.setDuration(Toast.LENGTH_LONG);

@@ -42,6 +42,7 @@ public class OrderHistoryActivity extends BaseActivity implements RecyclerViewIn
 
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -56,6 +57,7 @@ public class OrderHistoryActivity extends BaseActivity implements RecyclerViewIn
 
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -85,6 +87,9 @@ public class OrderHistoryActivity extends BaseActivity implements RecyclerViewIn
         orderModels.add(new OrderModel(1, 2, 3, 1, 2, "2023-03-24 12:21:03", "David Russell"));
     }
 
+
+    // When an order is clicked we use an intent bundle to pass it's information to the order
+    // details activity
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(OrderHistoryActivity.this, OrderDetailsActivity.class);
@@ -100,11 +105,13 @@ public class OrderHistoryActivity extends BaseActivity implements RecyclerViewIn
         startActivity(intent);
     }
 
+
+
     @Override
     protected void updateTextLanguage() {
+        super.updateTextLanguage();
 
         setTitle(context.getResources().getString(R.string.order_history));
-        languageSelector.setTitle(context.getResources().getString(R.string.language));
         mainMenuLink.setTitle(context.getResources().getString(R.string.main_menu));
         newOrderLink.setTitle(context.getResources().getString(R.string.new_order));
 

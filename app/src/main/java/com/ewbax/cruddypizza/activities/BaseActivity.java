@@ -33,6 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
+    // Creating the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -46,6 +47,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
+
+    // Method for handling menu item being selected - this one just handles the language selector
+    // is present on every activity.
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 

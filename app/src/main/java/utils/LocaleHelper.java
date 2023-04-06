@@ -22,8 +22,10 @@ public class LocaleHelper {
         return updateResources(context, language);
     }
 
+
+    // Stores the language choice in shared preferences
     private static void persist(Context context, String language) {
-        SharedPreferences preferences = context.getSharedPreferences("language", Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(LANG_PREFS_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(SELECTED_LANGUAGE, language);
         editor.apply();
@@ -31,6 +33,7 @@ public class LocaleHelper {
 
     // the method is used update the language of application by creating
     // object of inbuilt Locale class and passing language argument to it
+    // Returns a new context with the updated locale for use grabbing strings from the updated resources
     private static Context updateResources(Context context, String language) {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);

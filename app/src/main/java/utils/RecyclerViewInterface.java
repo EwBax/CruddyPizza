@@ -1,7 +1,9 @@
 package utils;
 
+
+// Recycler view interface to be implemented by class with recycler view (OrderHistoryActivity)
 public interface RecyclerViewInterface {
 
-    public void onItemClick(int position);
+    void onItemClick(int position);
 
 }

@@ -1,3 +1,4 @@
+
 // This adapter and the way I set up my recycler view was inspired by these videos https://www.youtube.com/watch?v=1ssYYy8Li48 https://www.youtube.com/watch?v=7GPUpvcU1FE&t=9s
 
 package utils;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 
 import models.OrderModel;
 
+// Adapter class for recycler view on OrderHistoryActivity
 public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.MyViewHolder> {
 
     private final RecyclerViewInterface recyclerViewInterface;
@@ -59,6 +61,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     public int getItemCount() {
         return orderModels.size();
     }
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
