@@ -32,7 +32,7 @@ public class OrderModel {
         date = dtf.format(now);
     }
 
-    public OrderModel(int orderNum, int size, int top1, int top2, int top3, String date, String customerName) {
+    public OrderModel(int orderNum, int size, int top1, int top2, int top3, String customerName, String date) {
         this.orderNum = orderNum;
         this.size = size;
         this.top1 = top1;

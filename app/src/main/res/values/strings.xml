@@ -15,6 +15,9 @@
     <string name="order_updated">Order updated.</string>
     <string name="order_deleted">Order deleted.</string>
     <string name="validation_error">Not all required fields are filled out.</string>
+    <string name="update_failed">Failed to update order.</string>
+    <string name="order_failed">Failed to create order.</string>
+    <string name="delete_failed">Failed to delete order.</string>
 
     <string-array name="size_list">
         <item>--Choose an Option--</item>

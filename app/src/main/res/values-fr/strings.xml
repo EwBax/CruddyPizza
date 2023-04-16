@@ -21,6 +21,7 @@
         <item>Pepperoni</item>
         <item>Oignon</item>
     </string-array>
+
     <string name="customer_name">Nom du Client</string>
     <string name="submit">Soumettre la Commande</string>
     <string name="order_details">Détails de la Commande</string>
@@ -31,5 +32,10 @@
     <string name="validation_error">Tous les champs obligatoires ne sont pas remplis.</string>
     <string name="order_updated">Commande mise à jour.</string>
     <string name="order_deleted">Commande supprimée.</string>
+    <string name="update_failed">Échec de la mise à jour de la commande.</string>
+    <string name="order_failed">Échec de la création de la commande.</string>
+    <string name="delete_failed">Échec de la suppression de la commande.
+
+</string>
 
 </resources>

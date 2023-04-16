@@ -1,5 +1,6 @@
 package com.ewbax.cruddypizza.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 import com.ewbax.cruddypizza.R;
 
 import models.OrderModel;
+import utils.DBAdapter;
 
 public class OrderDetailsActivity extends NewOrderActivity {
 
@@ -64,32 +66,64 @@ public class OrderDetailsActivity extends NewOrderActivity {
     }
 
 
-    // This method just does a toast to show that validation is taking place and the order is updated
-    // It will call the database adapter to update the order in the database
+    // Validates then updates order in database
     protected View.OnClickListener updateOrder = v -> {
-        Toast updateOrderMsg = new Toast(this);
-        updateOrderMsg.setDuration(Toast.LENGTH_LONG);
 
+        // Validating
         if (!validateFields()) {
-            updateOrderMsg.setText(context.getResources().getString(R.string.validation_error));
-            updateOrderMsg.show();
+            Toast.makeText(this, context.getResources().getString(R.string.validation_error), Toast.LENGTH_LONG).show();
         } else {
-            updateOrderMsg.setText(context.getResources().getString(R.string.order_updated));
-            updateOrderMsg.show();
-            finish();
+
+            // Opening db
+            DBAdapter dbAdapter = new DBAdapter(this);
+            dbAdapter.open();
+
+            // Updating order with new info
+            boolean result = dbAdapter.updateOrder(
+                    order.getOrderNum(),
+                    sizeSpin.getSelectedItemPosition(),
+                    top1Spin.getSelectedItemPosition(),
+                    top2Spin.getSelectedItemPosition(),
+                    top3Spin.getSelectedItemPosition(),
+                    customerNameET.getText().toString().trim()
+            );
+
+            // Closing db
+            dbAdapter.close();
+
+            // Checking if the update was successful
+            if (result) {
+                Toast.makeText(this, context.getResources().getString(R.string.order_updated), Toast.LENGTH_LONG).show();
+
+                // Returning to previous activity
+                finish();
+            } else {
+                Toast.makeText(this, context.getResources().getString(R.string.update_failed), Toast.LENGTH_LONG).show();
+            }
         }
 
     };
 
 
-    // This method just shows a message that the order was deleted, but it will eventually use the
-    // database adapter to actually delete the order from the database
+    // Deletes order from database
     protected View.OnClickListener deleteOrder = v -> {
-        Toast updateOrderMsg = new Toast(this);
-        updateOrderMsg.setDuration(Toast.LENGTH_LONG);
-        updateOrderMsg.setText(context.getResources().getString(R.string.order_deleted));
-        updateOrderMsg.show();
-        finish();
+
+        // Opening db
+        DBAdapter dbAdapter = new DBAdapter(this);
+        dbAdapter.open();
+
+        boolean result = dbAdapter.deleteOrder(order.getOrderNum());
+
+        if (result) {
+
+            Toast.makeText(this, context.getResources().getString(R.string.order_deleted), Toast.LENGTH_LONG).show();
+
+            // Returning to previous activity
+            finish();
+
+        } else {
+            Toast.makeText(this, context.getResources().getString(R.string.delete_failed), Toast.LENGTH_LONG).show();
+        }
 
     };
 

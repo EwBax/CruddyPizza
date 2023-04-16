@@ -17,6 +17,12 @@ import android.widget.Toast;
 
 import com.ewbax.cruddypizza.R;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
+import utils.DBAdapter;
+
 public class NewOrderActivity extends BaseActivity {
 
     protected TextView sizeTV;
@@ -158,20 +164,44 @@ public class NewOrderActivity extends BaseActivity {
     }
 
 
-    // This method just does a toast to show that validation is taking place and the order is submitted
-    // It will call the database adapter to enter the order into the database
+    // Checks that the required information has been filled out, then creates a new database entry for the order
     protected View.OnClickListener submitOrder = v -> {
 
-        Toast submitOrderMsg = new Toast(this);
-        submitOrderMsg.setDuration(Toast.LENGTH_LONG);
-
+        // Validating
         if (!validateFields()) {
-            submitOrderMsg.setText(context.getResources().getString(R.string.validation_error));
-            submitOrderMsg.show();
+            Toast.makeText(this, context.getResources().getString(R.string.validation_error), Toast.LENGTH_LONG).show();
         } else {
-            submitOrderMsg.setText(context.getResources().getString(R.string.order_submitted));
-            submitOrderMsg.show();
-            finish();
+
+            // For order_date
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+
+            // Opening db
+            DBAdapter dbAdapter = new DBAdapter(this);
+            dbAdapter.open();
+
+            // Creating the order and storing result
+            long result = dbAdapter.insertOrder(
+                    sizeSpin.getSelectedItemPosition(),
+                    top1Spin.getSelectedItemPosition(),
+                    top2Spin.getSelectedItemPosition(),
+                    top3Spin.getSelectedItemPosition(),
+                    customerNameET.getText().toString().trim(),
+                    dtf.format(now)
+            );
+
+            // Closing db
+            dbAdapter.close();
+
+            // -1 will be returned if there is an error
+            if (result < 0) {
+                Toast.makeText(this, context.getResources().getString(R.string.order_failed), Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, context.getResources().getString(R.string.order_submitted), Toast.LENGTH_LONG).show();
+
+                // Returning to the last activity
+                finish();
+            }
         }
 
     };

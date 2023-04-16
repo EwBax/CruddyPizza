@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import utils.DBAdapter;
 import utils.OrderHistoryAdapter;
 import utils.RecyclerViewInterface;
 import models.OrderModel;
@@ -31,15 +33,26 @@ public class OrderHistoryActivity extends BaseActivity implements RecyclerViewIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history);
 
+
+
+    }
+
+
+    // Refreshing order model data when resuming
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Refreshing order history
         RecyclerView orderHistoryRV = findViewById(R.id.orderHistoryRV);
 
         orderModels = new ArrayList<>();
+
         setUpOrderModels();
 
         OrderHistoryAdapter orderHistoryAdapter = new OrderHistoryAdapter(this, orderModels, this);
         orderHistoryRV.setAdapter(orderHistoryAdapter);
         orderHistoryRV.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
 
@@ -76,15 +89,35 @@ public class OrderHistoryActivity extends BaseActivity implements RecyclerViewIn
     }
 
 
-    // This method will in the future use the database adapter to pull orders from the database
-    // As a placeholder I have hardcoded a few orders
+    // Pulls all order from the database and adds each one to orderModels list
     private void setUpOrderModels() {
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
+        // Opening db
+        DBAdapter dbAdapter = new DBAdapter(this);
+        dbAdapter.open();
 
-        orderModels.add(new OrderModel(2, 1, 1, 2, 3, dtf.format(now), "Ewan Baxter"));
-        orderModels.add(new OrderModel(1, 2, 3, 1, 2, "2023-03-24 12:21:03", "David Russell"));
+        Cursor data = dbAdapter.getAllOrders();
+
+        data.moveToFirst();
+
+        // Looping through each row in cursor
+        for (int i = 0; i < data.getCount(); i++) {
+            // Creating order model
+            // Data columns are in the same order as the parameters for OrderModel constructor
+            orderModels.add(new OrderModel(
+                    data.getInt(0),
+                    data.getInt(1),
+                    data.getInt(2),
+                    data.getInt(3),
+                    data.getInt(4),
+                    data.getString(5),
+                    data.getString(6)
+                    )
+            );
+            data.moveToNext();
+        }
+
+        dbAdapter.close();
     }
 
 
@@ -103,6 +136,7 @@ public class OrderHistoryActivity extends BaseActivity implements RecyclerViewIn
         intent.putExtra("CUSTOMER_NAME", orderModels.get(position).getCustomerName());
 
         startActivity(intent);
+
     }
 
 
