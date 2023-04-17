@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ewbax.cruddypizza.R;
 
@@ -32,8 +34,6 @@ public class OrderHistoryActivity extends BaseActivity implements RecyclerViewIn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history);
-
-
 
     }
 
@@ -94,7 +94,14 @@ public class OrderHistoryActivity extends BaseActivity implements RecyclerViewIn
 
         // Opening db
         DBAdapter dbAdapter = new DBAdapter(this);
-        dbAdapter.open();
+
+        try {
+            dbAdapter.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Toast.makeText(this, context.getResources().getString(R.string.read_failed), Toast.LENGTH_LONG).show();
+            return;
+        }
 
         Cursor data = dbAdapter.getAllOrders();
 

@@ -3,6 +3,7 @@ package com.ewbax.cruddypizza.activities;
 import androidx.annotation.NonNull;
 
 import android.content.Intent;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -178,7 +179,14 @@ public class NewOrderActivity extends BaseActivity {
 
             // Opening db
             DBAdapter dbAdapter = new DBAdapter(this);
-            dbAdapter.open();
+
+            try {
+                dbAdapter.open();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                Toast.makeText(this, context.getResources().getString(R.string.order_failed), Toast.LENGTH_LONG).show();
+                return;
+            }
 
             // Creating the order and storing result
             long result = dbAdapter.insertOrder(

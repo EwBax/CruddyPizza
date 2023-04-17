@@ -1,6 +1,7 @@
 package com.ewbax.cruddypizza.activities;
 
 import android.content.Intent;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -76,7 +77,14 @@ public class OrderDetailsActivity extends NewOrderActivity {
 
             // Opening db
             DBAdapter dbAdapter = new DBAdapter(this);
-            dbAdapter.open();
+
+            try {
+                dbAdapter.open();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                Toast.makeText(this, context.getResources().getString(R.string.update_failed), Toast.LENGTH_LONG).show();
+                return;
+            }
 
             // Updating order with new info
             boolean result = dbAdapter.updateOrder(
@@ -110,7 +118,14 @@ public class OrderDetailsActivity extends NewOrderActivity {
 
         // Opening db
         DBAdapter dbAdapter = new DBAdapter(this);
-        dbAdapter.open();
+
+        try {
+            dbAdapter.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Toast.makeText(this, context.getResources().getString(R.string.delete_failed), Toast.LENGTH_LONG).show();
+            return;
+        }
 
         boolean result = dbAdapter.deleteOrder(order.getOrderNum());
 

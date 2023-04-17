@@ -37,5 +37,6 @@
     <string name="delete_failed">Échec de la suppression de la commande.
 
 </string>
+    <string name="read_failed">Impossible de lire les commandes de la base de données.</string>
 
 </resources>

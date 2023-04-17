@@ -18,6 +18,7 @@
     <string name="update_failed">Failed to update order.</string>
     <string name="order_failed">Failed to create order.</string>
     <string name="delete_failed">Failed to delete order.</string>
+    <string name="read_failed">Failed to read orders from database.</string>
 
     <string-array name="size_list">
         <item>--Choose an Option--</item>
